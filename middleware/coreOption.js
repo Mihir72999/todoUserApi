@@ -1,4 +1,4 @@
-const whiteList = ['http://localhost:3000' , 'https://todouserlist.vercel.app']
+const whiteList = ['http://localhost:3000' , 'https://todouserlist.vercel.app', 'todouserlist.vercel.app']
 
 export const corsOptions = {
     origin:(origin , callBack)=>{
