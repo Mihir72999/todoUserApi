@@ -59,11 +59,11 @@ try {
 })
 
 router.route('/deleteUser').delete(async(req,res)=>{
- const {name} = req.body
+ const { password} = req.body
  try{
-  const user = await prisma.user.findFirst({where:{name}})
+  const user = await prisma.user.findFirst({where:{password}})
   if(user){
-    await prisma.user.deleteMany({where:{name}})
+    await prisma.user.deleteMany({where:{name:user.name}})
   res.status(200).json({message:`${user.name} has been deleted`})  
 }else{
   res.status(404).json({message:'user not found'})
