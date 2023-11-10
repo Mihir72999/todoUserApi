@@ -7,6 +7,8 @@ router.route('').get((_ , res)=>{
     res.json({message:"welcome to todo api"})
 })
 
+
+// get route all user 
 router.route('/getUser').get(async(req,res)=>{
   try{      
     const data = await prisma.user.findMany()
@@ -15,6 +17,9 @@ router.route('/getUser').get(async(req,res)=>{
     res.status(404).json(err)
   }
 })
+
+
+// post route to post user
 router.route('/postUser').post(async(req,res)=>{
     const {name , email ,password  } = req.body
     try {
@@ -41,12 +46,11 @@ router.route('/postUser').post(async(req,res)=>{
 })
 
 
-
-router.route('/updateUser/:name').patch(async(req,res)=>{
+// update route to update user
+router.route('/updateUser').patch(async(req,res)=>{
 const {name , email , password} = req.body
-const userName = req.params.name
 try {
-  const user = await prisma.user.findFirst({where:{password , name:userName}})
+  const user = await prisma.user.findFirst({where:{password}})
   if(user){
    const data =  await prisma.user.updateMany({where:{name:user.name},data:{name , email}})
   res.status(201).json({message:`${user.name} has been updated` , data})  
@@ -58,6 +62,8 @@ try {
 }
 })
 
+
+// delete route to delete user
 router.route('/deleteUser').delete(async(req,res)=>{
  const { password} = req.body
  try{
